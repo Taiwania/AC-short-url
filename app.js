@@ -21,10 +21,17 @@ db.once('open', () => {
   console.log('MongoDB is connected successfully.')
 })
 
+// Handlebars
+const exphbs = require('express-handlebars');
+app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
+
+// Main Page
 app.get('/', (req, res) => {
-  res.send(`Test`)
+  res.render('index')
 })
 
+// Listener
 app.listen(port, () => {
   console.log(`The website http://localhost:${port} is online.`)
 })
