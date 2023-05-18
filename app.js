@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const port = 3310
+const URL = 'http://localhost'
 
 // dotenv
 if (process.env.NODE_ENV !== 'production') {
@@ -33,5 +34,5 @@ app.get('/', (req, res) => {
 
 // Listener
 app.listen(port, () => {
-  console.log(`The website http://localhost:${port} is online.`)
+  console.log(`The website ${URL}:${port} is online.`)
 })
