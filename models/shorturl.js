@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const shortUrlSchema = new Schema({
   url: { type: String, required: true },
-  suffix: { type: String, required: true}
+  suffix: { type: String, required: true }
 })
 
 // Export Model
