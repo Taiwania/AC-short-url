@@ -47,6 +47,11 @@ app.post('/', (req, res) => {
   res.render('index')
 })
 
+// Result Page
+app.get('/result', (req, res) => {
+  res.render('result')
+})
+
 // Listener
 app.listen(port, () => {
   console.log(`The website ${URL}:${port} is online.`)
