@@ -27,8 +27,18 @@ const exphbs = require('express-handlebars');
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
+// Body-parser
+app.use(express.urlencoded({ extended: true }))
+
 // Main Page
 app.get('/', (req, res) => {
+  res.render('index')
+})
+
+// Get the Long URL inputted
+app.post('/', (req, res) => {
+  const longURL = req.body
+  console.log('Long URL: ', longURL)
   res.render('index')
 })
 
