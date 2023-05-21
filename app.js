@@ -39,25 +39,38 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-// Get the Long URL inputted
+// Generate the short URL
 app.post('/', (req, res) => {
+
+  // Get the Long URL and suffix from the Input Box and suffix generator
   const longURL = req.body.url
   const suffix = generatedSuffix(req.body)
+
+  // Set the related message and button
   const copyButton = `<button class="btn btn-success" type="submit">複製</button>`
   const shortUrl = `${URL}:${port}/${suffix}`
   const successMsg = `短網址產生完畢：${shortUrl}`
 
-  console.log('Long URL: ', longURL)
-  console.log('Generated suffix: ', suffix)
-
+  // 檢查使用者是否將網址列留空，如果有，給出錯誤訊息
   if (longURL.length === 0) {
     const noUrlInput = `您沒有輸入網址，請重新輸入。`
     res.render('result', { result: noUrlInput })
-  } else {
-    return ShortUrl.create({ url: longURL, suffix })
-      .then(() => res.render('result', { result: successMsg, copy: copyButton }))
-      .catch(error => console.log(error))
   }
+
+  // 檢查輸入的網址是否在資料庫有紀錄
+  ShortUrl.findOne({ url: longURL })
+    .then((result) => {
+      // 如果有則給出產生過的短網址
+      if (result) {
+        const recordMsg = `您輸入的網址已產生過這個短網址：${URL}:${port}/${result.suffix}`
+        res.render('result', { result: recordMsg, copy: copyButton })
+      } else {
+        return ShortUrl.create({ url: longURL, suffix }) // 如果沒有則將輸入的網址及產生的短網址後綴輸入資料庫並給出對映短網址
+          .then(() => res.render('result', { result: successMsg, copy: copyButton }))
+          .catch(error => console.log(error))
+      }
+    })
+    .catch(error => console.log(error))
 })
 
 // Listener
