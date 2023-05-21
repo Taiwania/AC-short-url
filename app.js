@@ -30,6 +30,9 @@ app.set('view engine', 'hbs')
 // Body-parser
 app.use(express.urlencoded({ extended: true }))
 
+// Get the suffix
+const generatedSuffix = require('./generate-suffix')
+
 // Main Page
 app.get('/', (req, res) => {
   res.render('index')
@@ -38,7 +41,9 @@ app.get('/', (req, res) => {
 // Get the Long URL inputted
 app.post('/', (req, res) => {
   const longURL = req.body
+  const suffix = generatedSuffix(req.body)
   console.log('Long URL: ', longURL)
+  console.log('Generated suffix: ', suffix)
   res.render('index')
 })
 
