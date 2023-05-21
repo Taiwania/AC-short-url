@@ -43,6 +43,10 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const longURL = req.body.url
   const suffix = generatedSuffix(req.body)
+  const copyButton = `<button class="btn btn-success" type="submit">複製</button>`
+  const shortUrl = `${URL}:${port}/${suffix}`
+  const successMsg = `短網址產生完畢：${shortUrl}`
+
   console.log('Long URL: ', longURL)
   console.log('Generated suffix: ', suffix)
 
@@ -51,14 +55,9 @@ app.post('/', (req, res) => {
     res.render('result', { result: noUrlInput })
   } else {
     return ShortUrl.create({ url: longURL, suffix })
-      .then(() => res.redirect('/'))
+      .then(() => res.render('result', { result: successMsg, copy: copyButton }))
       .catch(error => console.log(error))
   }
-})
-
-// Result Page
-app.get('/result', (req, res) => {
-  res.render('result')
 })
 
 // Listener
