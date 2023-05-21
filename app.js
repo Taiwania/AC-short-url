@@ -54,17 +54,19 @@ app.post('/', (req, res) => {
 
   // Set the related message and button
   const copyButton = `<button class="btn btn-success" type="submit">複製</button>`
-  const shortUrl = `${URL}:${port}/${suffix}`
-  const successMsg = `短網址產生完畢：${shortUrl}<br>如果要重新輸入網址，請使用瀏覽器的重新整理按鈕。`
+  const newShortUrl = `${URL}:${port}/${suffix}`
 
   // 檢查輸入的網址是否在資料庫有紀錄
   ShortUrl.findOne({ url: longURL })
     .then((result) => {
       // 如果有則給出產生過的短網址
       if (result) {
-        const recordMsg = `您輸入的網址已產生過這個短網址：${URL}:${port}/${result.suffix}<br>如果要重新輸入網址，請使用瀏覽器的重新整理按鈕。`
+        const shortUrl = `${URL}:${port}/${result.suffix}`
+        const recordMsg = `您輸入的網址曾產生出這個短網址：${shortUrl}<br>如果要重新輸入網址，請使用瀏覽器的重新整理按鈕。`
         res.render('result', { result: recordMsg, copy: copyButton })
       } else {
+        const shortUrl = newShortUrl
+        const successMsg = `短網址產生完畢：${shortUrl}<br>如果要重新輸入網址，請使用瀏覽器的重新整理按鈕。`
         return ShortUrl.create({ url: longURL, suffix }) // 如果沒有則將輸入的網址及產生的短網址後綴輸入資料庫並給出對映短網址
           .then(() => res.render('result', { result: successMsg, copy: copyButton }))
           .catch(error => console.log(error))

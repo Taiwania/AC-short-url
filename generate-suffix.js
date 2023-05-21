@@ -1,10 +1,12 @@
+const ShortUrl = require('./models/shorturl')
+
 // Define the method to generate suffix
 function sample(array) {
   const index = Math.floor(Math.random() * array.length)
   return array[index]
 }
 
-function generateSuffix() {
+async function generateSuffix() {
   
   // Set the characters lake
   const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -14,12 +16,19 @@ function generateSuffix() {
   let charLake = []
   charLake = charLake.concat(upperCaseLetters.split(''), lowerCaseLetters.split(''), numbers.split(''))
 
-  // Generate the suffix (and compare the existed suffix on the mongoDB)
+  // Generate the suffix
   let suffix = ''
   for (i = 0; i < 5; i++) {
     suffix += sample(charLake)
   }
   
+  // Check the existed suffix on the mongoDB
+  const existedSuffix = await ShortUrl.findOne({ suffix: suffix })
+
+  if (existedSuffix) {
+    return generateSuffix()
+  }
+
   // Return the suffix
   return suffix
 }
