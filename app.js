@@ -45,9 +45,15 @@ app.post('/', (req, res) => {
   const suffix = generatedSuffix(req.body)
   console.log('Long URL: ', longURL)
   console.log('Generated suffix: ', suffix)
-  return ShortUrl.create({ url: longURL, suffix })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+
+  if (longURL.length === 0) {
+    const noUrlInput = `您沒有輸入網址，請重新輸入。`
+    res.render('result', { result: noUrlInput })
+  } else {
+    return ShortUrl.create({ url: longURL, suffix })
+      .then(() => res.redirect('/'))
+      .catch(error => console.log(error))
+  }
 })
 
 // Result Page
