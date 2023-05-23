@@ -28,11 +28,11 @@ function generateSuffix() {
   // Check the existed suffix on the mongoDB
   const existedSuffix = ShortUrl.findOne({ suffix: suffix });
 
-  if (existedSuffix === null) {
-    return suffix;
-  } else {
+  if (existedSuffix) {
     return generateSuffix();
   }
+
+  return suffix;
 }
 
 // Export the suffix
