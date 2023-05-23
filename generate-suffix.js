@@ -1,37 +1,39 @@
-const ShortUrl = require('./models/shorturl')
+const ShortUrl = require("./models/shorturl");
 
 // Define the method to generate suffix
 function sample(array) {
-  const index = Math.floor(Math.random() * array.length)
-  return array[index]
+  const index = Math.floor(Math.random() * array.length);
+  return array[index];
 }
 
-async function generateSuffix() {
-  
+function generateSuffix() {
   // Set the characters lake
-  const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  const lowerCaseLetters = upperCaseLetters.toLocaleLowerCase()
-  const numbers = '0123456789'
+  const upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowerCaseLetters = upperCaseLetters.toLocaleLowerCase();
+  const numbers = "0123456789";
 
-  let charLake = []
-  charLake = charLake.concat(upperCaseLetters.split(''), lowerCaseLetters.split(''), numbers.split(''))
+  let charLake = [];
+  charLake = charLake.concat(
+    upperCaseLetters.split(""),
+    lowerCaseLetters.split(""),
+    numbers.split("")
+  );
 
   // Generate the suffix
-  let suffix = ''
+  let suffix = "";
   for (i = 0; i < 5; i++) {
-    suffix += sample(charLake)
+    suffix += sample(charLake);
   }
-  
+
   // Check the existed suffix on the mongoDB
-  const existedSuffix = await ShortUrl.findOne({ suffix: suffix })
+  const existedSuffix = ShortUrl.findOne({ suffix: suffix });
 
-  if (existedSuffix) {
-    return generateSuffix()
+  if (existedSuffix === null) {
+    return suffix;
+  } else {
+    return generateSuffix();
   }
-
-  // Return the suffix
-  return suffix
 }
 
 // Export the suffix
-module.exports = generateSuffix
+module.exports = generateSuffix;
