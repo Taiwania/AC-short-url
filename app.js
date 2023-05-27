@@ -63,7 +63,7 @@ app.post("/", async (req, res) => {
     }
 
     // Set the related message and button
-    const copyButton = `<button class="btn btn-success">複製</button>`;
+    const copyButton = `<button class="btn btn-success" id="copyBtn">複製</button>`;
     const newShortUrl = `${URL}:${port}/${suffix}`;
 
     // 檢查輸入的網址是否在資料庫有紀錄
@@ -85,6 +85,19 @@ app.post("/", async (req, res) => {
         }
       })
       .catch((error) => console.log(error));
+  }
+});
+
+app.get("/:suffix", async (req, res) => {
+  try {
+    const targetSuffix = await ShortUrl.findOne({ suffix: req.params.suffix });
+    if (targetSuffix) {
+      res.redirect(targetSuffix.url);
+    } else {
+      res.status(404).send(`您所輸入的短網址不存在。`);
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 
