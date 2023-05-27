@@ -1,5 +1,3 @@
-const ShortUrl = require("./models/shorturl");
-
 // Define the method to generate suffix
 function sample(array) {
   const index = Math.floor(Math.random() * array.length);
@@ -23,13 +21,6 @@ function generateSuffix() {
   let suffix = "";
   for (i = 0; i < 5; i++) {
     suffix += sample(charLake);
-  }
-
-  // Check the existed suffix on the mongoDB
-  const existedSuffix = ShortUrl.findOne({ suffix: suffix });
-
-  if (existedSuffix) {
-    return generateSuffix();
   }
 
   return suffix;
