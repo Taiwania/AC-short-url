@@ -1,14 +1,14 @@
 // Express
 const express = require("express");
 const app = express();
-const port = 3310;
 const URL = "http://localhost";
+const PORT = process.env.PORT || 3310
 
 // Body-parser and routes
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-const routes = require('./routes')
+const routes = require("./routes");
 app.use(routes);
 
 // dotenv
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // Mongoose and MongoDB
-require('./config/mongoose')
+require("./config/mongoose");
 
 // Handlebars
 const exphbs = require("express-handlebars");
@@ -28,6 +28,6 @@ app.set("view engine", "hbs");
 const ShortUrl = require("./models/shorturl");
 
 // Listener
-app.listen(port, () => {
-  console.log(`The website ${URL}:${port} is online.`);
+app.listen(PORT, () => {
+  console.log(`The website ${URL}:${PORT} is online.`);
 });
