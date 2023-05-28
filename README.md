@@ -36,19 +36,27 @@
 
 4.  執行以下指令，匯入本專案的種子資料到 MongoDB 資料庫：
 
-    ```npm run seed```
+    ```
+    npm run seed
+    ```
 
     看到以下訊息代表資料已經匯入 MongoDB：
 
-    ```The seeder is imported.```
+    ```
+    The seeder is imported.
+    ```
 
 5.  最後執行以下指令啟動網站：
 
-    ```npm run dev```
+    ```
+    npm run dev
+    ```
 
     看到以下指令代表網站載入完成，可以使用瀏覽器打開 http://localhost:3310 即可進入網站。
 
-    ```The website http://localhost:3310 is online.```
+    ```
+    The website http://localhost:3310 is online.
+    ```
 
 ### Heroku 執行
 1.  註冊、設定 Heroku 並安裝完 Heroku CLI。
@@ -79,10 +87,7 @@
 6.  在 Heroku 生成種子資料：
 
     ```
-    heroku run npm run seed -a -<自己的 Heroku 專案名稱>
+    heroku run npm run seed -a <自己的 Heroku 專案名稱>
     ```
 
     完成後即可使用 Heroku 的網站連結操作本網站。
-
-## 開發人員
-Taiwania
