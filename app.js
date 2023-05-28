@@ -1,19 +1,19 @@
+// dotenv
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 // Express
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3310;
 const LocalURL = "http://localhost";
 
-// dotenv
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 let URL = "";
 if (process.env.HEROKU) {
-  URL = process.env.HEROKU_URL
+  URL = process.env.HEROKU_URL;
 } else {
-  URL = `${LocalURL}:${PORT}`
+  URL = `${LocalURL}:${PORT}`;
 }
 
 // Body-parser and routes
