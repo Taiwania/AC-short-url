@@ -4,6 +4,11 @@ const app = express();
 const PORT = process.env.PORT || 3310;
 const LocalURL = "http://localhost";
 
+// dotenv
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 let URL = "";
 if (process.env.HEROKU) {
   URL = process.env.HEROKU_URL
@@ -17,11 +22,6 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 const routes = require("./routes");
 app.use(routes);
-
-// dotenv
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
 
 // Mongoose and MongoDB
 require("./config/mongoose");
