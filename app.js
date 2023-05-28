@@ -13,21 +13,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-// Mongoose
-const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGODB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-// MongoDB
-const db = mongoose.connection;
-db.on("error", () => {
-  console.log("MongoDB encountered the error(s).");
-});
-db.once("open", () => {
-  console.log("MongoDB is connected successfully.");
-});
+// Mongoose and MongoDB
+require('./config/mongoose')
 
 // Handlebars
 const exphbs = require("express-handlebars");

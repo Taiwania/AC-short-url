@@ -5,7 +5,4 @@ const router = express.Router();
 const home = require("./modules/home");
 router.use("/", home);
 
-const result = require('./modules/result')
-router.use('/', result)
-
 module.exports = router;
