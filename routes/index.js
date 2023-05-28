@@ -8,4 +8,7 @@ router.use("/", home);
 const result = require("./modules/result");
 router.use("/", result);
 
+const redirect = require("./modules/redirect");
+router.use("/", redirect);
+
 module.exports = router;
