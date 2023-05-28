@@ -1,11 +1,10 @@
-// dotenv
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 // Express
 const express = require("express");
 const app = express();
+
+// Mongoose and MongoDB
+require("./config/mongoose");
+
 const PORT = process.env.PORT || 3310;
 const LocalURL = "http://localhost";
 
@@ -22,9 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 const routes = require("./routes");
 app.use(routes);
-
-// Mongoose and MongoDB
-require("./config/mongoose");
 
 // Handlebars
 const exphbs = require("express-handlebars");
