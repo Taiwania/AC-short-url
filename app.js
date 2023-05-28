@@ -1,8 +1,15 @@
 // Express
 const express = require("express");
 const app = express();
-const URL = process.env.URL || "http://localhost";
-const PORT = process.env.PORT || 3310
+const PORT = process.env.PORT || 3310;
+const LocalURL = "http://localhost";
+
+let URL = "";
+if (process.env.HEROKU) {
+  URL = process.env.HEROKU_URL
+} else {
+  URL = `${LocalURL}:${PORT}`
+}
 
 // Body-parser and routes
 app.use(express.urlencoded({ extended: true }));

@@ -4,7 +4,14 @@ const ShortUrl = require("../../models/shorturl");
 
 const generatedSuffix = require("../../generate-suffix");
 const PORT = process.env.PORT || 3310;
-const URL = process.env.URL || "http://localhost";
+const LocalURL = "http://localhost";
+
+let URL = "";
+if (process.env.HEROKU) {
+  URL = process.env.HEROKU_URL;
+} else {
+  URL = `${LocalURL}:${PORT}`;
+}
 
 router.post("/", async (req, res) => {
   // 檢查使用者是否將網址列留空，如果有，給出錯誤訊息
@@ -27,14 +34,14 @@ router.post("/", async (req, res) => {
 
     // Set the related message and button
     const copyButton = `<button class="btn btn-success" id="copyBtn" onclick="copyToClipboard()">複製</button>`;
-    const newShortUrl = `${URL}:${PORT}/${suffix}`;
+    const newShortUrl = `${URL}/${suffix}`;
 
     // 檢查輸入的網址是否在資料庫有紀錄
     ShortUrl.findOne({ url: longURL })
       .then((result) => {
         // 如果有則給出產生過的短網址
         if (result) {
-          const shortUrl = `${URL}:${PORT}/${result.suffix}`;
+          const shortUrl = `${URL}/${result.suffix}`;
           const recordMsg = `您輸入的網址曾產生出這個短網址：<strong id="shortUrl">${shortUrl}</strong><br>如果要重新輸入網址，請使用瀏覽器的重新整理按鈕。`;
           res.render("result", { result: recordMsg, copy: copyButton });
         } else {
