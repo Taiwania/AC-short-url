@@ -1,19 +1,19 @@
-<div class="container mt-5">
-  <h2>短網址產生器</h2>
-  <img src="https://assets-lighthouse.alphacamp.co/uploads/image/file/16716/ExportedContentImage_00.png" alt="短網址圖標">
+<div class="container w-25 mt-5 border border-1 rounded">
+  <h2 class="text-center">短網址產生器</h2>
+  <img
+    src="https://assets-lighthouse.alphacamp.co/uploads/image/file/16716/ExportedContentImage_00.png"
+    alt="短網址圖標"
+    class="w-75"
+  />
   <div class="alert alert-info" role="alert">
-    <span class="mr-2">{{{ result }}}</span>
+    <span class="mr-2">{{{result}}}</span>
   </div>
-  {{{ copy }}}
+  {{{copy}}}
+
   <script>
-    function copyToClipboard() {
-      const copyText = document.getElementById("shortUrl").innerText;
-      try {
-        navigator.clipboard.writeText(copyText);
-        alert("短網址已複製！");
-      } catch (err) {
-        alert("無法複製短網址。");
-      }
-    }
+    function copyToClipboard() { const copyText =
+    document.getElementById("shortUrl").innerText; try {
+    navigator.clipboard.writeText(copyText); alert("短網址已複製！"); } catch
+    (err) { alert("無法複製短網址。"); } }
   </script>
 </div>

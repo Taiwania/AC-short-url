@@ -36,5 +36,5 @@ const ShortUrl = require("./models/shorturl");
 
 // Listener
 app.listen(PORT, () => {
-  console.log(`The website ${URL}:${PORT} is online.`);
+  console.log(`The website ${URL} is online.`);
 });

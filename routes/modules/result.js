@@ -42,11 +42,11 @@ router.post("/", async (req, res) => {
         // 如果有則給出產生過的短網址
         if (result) {
           const shortUrl = `${URL}/${result.suffix}`;
-          const recordMsg = `您輸入的網址曾產生出這個短網址：<strong id="shortUrl">${shortUrl}</strong><br>如果要重新輸入網址，請使用瀏覽器的重新整理按鈕。`;
+          const recordMsg = `您輸入的網址曾產生出這個短網址：<p class="fw-bold" id="shortUrl">${shortUrl}</p>如果要重新輸入網址，請使用瀏覽器的重新整理按鈕。`;
           res.render("result", { result: recordMsg, copy: copyButton });
         } else {
           const shortUrl = newShortUrl;
-          const successMsg = `短網址產生完畢：<strong id="shortUrl">${shortUrl}</strong><br>如果要重新輸入網址，請使用瀏覽器的重新整理按鈕。`;
+          const successMsg = `短網址產生完畢：<p class="fw-bold" id="shortUrl">${shortUrl}</p>如果要重新輸入網址，請使用瀏覽器的重新整理按鈕。`;
           return ShortUrl.create({ url: longURL, suffix }) // 如果沒有則將輸入的網址及產生的短網址後綴輸入資料庫並給出對映短網址
             .then(() =>
               res.render("result", { result: successMsg, copy: copyButton })
