@@ -4,7 +4,7 @@ const ShortUrl = require("../../models/shorturl");
 
 const generatedSuffix = require("../../generate-suffix");
 const PORT = process.env.PORT || 3310;
-const URL = "http://localhost";
+const URL = process.env.URL || "http://localhost";
 
 router.post("/", async (req, res) => {
   // 檢查使用者是否將網址列留空，如果有，給出錯誤訊息

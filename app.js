@@ -1,7 +1,7 @@
 // Express
 const express = require("express");
 const app = express();
-const URL = "http://localhost";
+const URL = process.env.URL || "http://localhost";
 const PORT = process.env.PORT || 3310
 
 // Body-parser and routes
