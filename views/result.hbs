@@ -5,4 +5,15 @@
     <span class="mr-2">{{{ result }}}</span>
   </div>
   {{{ copy }}}
+  <script>
+    function copyToClipboard() {
+      const copyText = document.getElementById("shortUrl").innerText;
+      try {
+        navigator.clipboard.writeText(copyText);
+        alert("短網址已複製！");
+      } catch (err) {
+        alert("無法複製短網址。");
+      }
+    }
+  </script>
 </div>

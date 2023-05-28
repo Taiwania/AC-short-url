@@ -1,48 +1,8 @@
-// Express
 const express = require("express");
-const app = express();
-const port = 3310;
-const URL = "http://localhost";
+const router = express.Router();
+const ShortUrl = require("../../models/shorturl");
 
-// Routes
-const routes = require('./routes')
-app.use(routes);
-
-// dotenv
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
-// Mongoose
-const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGODB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-// MongoDB
-const db = mongoose.connection;
-db.on("error", () => {
-  console.log("MongoDB encountered the error(s).");
-});
-db.once("open", () => {
-  console.log("MongoDB is connected successfully.");
-});
-
-// Handlebars
-const exphbs = require("express-handlebars");
-app.engine("hbs", exphbs.engine({ defaultLayout: "main", extname: ".hbs" }));
-app.set("view engine", "hbs");
-
-// Body-parser and routes
-app.use(express.urlencoded({ extended: true }));
-
-// Get the suffix and ShortURL Model
-const generatedSuffix = require("./generate-suffix");
-const ShortUrl = require("./models/shorturl");
-
-// Generate the short URL
-app.post("/", async (req, res) => {
+router.post("/", async (req, res) => {
   // 檢查使用者是否將網址列留空，如果有，給出錯誤訊息
   if (!req.body.url) {
     const noUrlInput = `您沒有輸入網址，請重新整理後再輸入有效的網址。`;
@@ -87,20 +47,4 @@ app.post("/", async (req, res) => {
   }
 });
 
-app.get("/:suffix", async (req, res) => {
-  try {
-    const targetSuffix = await ShortUrl.findOne({ suffix: req.params.suffix });
-    if (targetSuffix) {
-      res.redirect(targetSuffix.url);
-    } else {
-      res.status(404).send(`您所輸入的短網址不存在。`);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-// Listener
-app.listen(port, () => {
-  console.log(`The website ${URL}:${port} is online.`);
-});
+module.exports = router
