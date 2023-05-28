@@ -4,6 +4,8 @@
 本專案網站可以將使用者輸入的過長網址，轉成短網址。
 
 ## 網站畫面
+![主畫面](./screenshots/main.png)
+![短網址產生畫面](./screenshots/result.png)
 
 ## 使用技術
 1.  Node.js version 19.3.0
