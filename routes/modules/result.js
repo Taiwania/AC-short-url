@@ -16,8 +16,9 @@ if (process.env.HEROKU) {
 router.post("/", async (req, res) => {
   // 檢查使用者是否將網址列留空，如果有，給出錯誤訊息
   if (!req.body.url) {
-    const noUrlInput = `您沒有輸入網址，請重新整理後再輸入有效的網址。`;
-    res.render("result", { result: noUrlInput });
+    const noUrlInput = `您沒有輸入網址，即將在 3 秒鐘後返回首頁。`;
+    const redirect = true
+    res.render("result", { result: noUrlInput, redirect });
   } else {
     // Get the Long URL and suffix from the Input Box and suffix generator
     const longURL = req.body.url;

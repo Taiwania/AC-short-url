@@ -17,5 +17,11 @@
     document.getElementById("shortUrl").innerText; try {
     navigator.clipboard.writeText(copyText); alert("短網址已複製！"); } catch
     (err) { alert("無法複製短網址。"); } }
+
+    {{#if redirect}}
+      setTimeout(function() {
+        window.location.href = '/';
+      }, 3000);
+    {{/if}}
   </script>
 </div>
