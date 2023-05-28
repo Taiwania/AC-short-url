@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const ShortUrl = require("../../models/shorturl");
 
+const generatedSuffix = require("../../generate-suffix");
+const port = 3310;
+const URL = "http://localhost";
+
 router.post("/", async (req, res) => {
   // 檢查使用者是否將網址列留空，如果有，給出錯誤訊息
   if (!req.body.url) {
